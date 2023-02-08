@@ -1,1 +1,1 @@
-bot: python3 trending_bot.py
+bot: python trending_bot.py
