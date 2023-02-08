@@ -13,7 +13,7 @@ updater = Updater(token='5801838689:AAGC4Zh9_S6Dt9gpf3uB3tNQ4w65XBSVi3M', use_co
 buttons = [[InlineKeyboardButton('Publicity here now! Visit DefiNet🤏', url='https://www.example.com')]]
 keyboard = InlineKeyboardMarkup(buttons)
 
-seconds_edit_message = 2
+seconds_edit_message = 10
 
 def sqlConnectorExtractPostTelegramTokenInfo(table_name):
     cnx = mysql.connector.connect(
@@ -32,7 +32,6 @@ def sqlConnectorExtractPostTelegramTokenInfo(table_name):
     cnx.close()
 
     top_10_tokens = sorted(result, key=itemgetter('hour1'), reverse=True)[0:10]
-    print(len(top_10_tokens))
     return top_10_tokens
 
 # Message template
@@ -40,20 +39,19 @@ def generate_message():
     top_10_tokens = sqlConnectorExtractPostTelegramTokenInfo("trending_tokens")
     top_10_formated = []
     
-    top_10_formated.append(f"<b>🥇</b>" + "|" + f"<b><a href='{top_10_tokens[0]['dextools']}'>{top_10_tokens[0]['TOKEN_NAME']} ({top_10_tokens[0]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[0]['hour1']}</i>"
-        + "\n" + f"<b>🥈</b>" + "|" + f"<b><a href='{top_10_tokens[1]['dextools']}'>{top_10_tokens[1]['TOKEN_NAME']} ({top_10_tokens[1]['change_hour1']*100})</a></b>" + "|" +  f"<i>${top_10_tokens[1]['hour1']}</i>"
-        + "\n" + f"<b>🥉</b>" + "|" + f"<b><a href='{top_10_tokens[2]['dextools']}'>{top_10_tokens[2]['TOKEN_NAME']} ({top_10_tokens[2]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[2]['hour1']}</i>"
-        + "\n" + f"<b>4</b>" + "|" + f"<b><a href='{top_10_tokens[3]['dextools']}'>{top_10_tokens[3]['TOKEN_NAME']} ({top_10_tokens[3]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[3]['hour1']}</i>"
-        + "\n" + f"<b>5</b>" + "|" + f"<b><a href='{top_10_tokens[4]['dextools']}'>{top_10_tokens[4]['TOKEN_NAME']} ({top_10_tokens[4]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[4]['hour1']}</i>"
-        + "\n" + f"<b>6</b>" + "|" + f"<b><a href='{top_10_tokens[5]['dextools']}'>{top_10_tokens[5]['TOKEN_NAME']} ({top_10_tokens[5]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[5]['hour1']}</i>"
-        + "\n" + f"<b>7</b>" + "|" + f"<b><a href='{top_10_tokens[6]['dextools']}'>{top_10_tokens[6]['TOKEN_NAME']} ({top_10_tokens[6]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[6]['hour1']}</i>"
-        + "\n" + f"<b>8</b>" + "|" + f"<b><a href='{top_10_tokens[7]['dextools']}'>{top_10_tokens[7]['TOKEN_NAME']} ({top_10_tokens[7]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[7]['hour1']}</i>"
-        + "\n" + f"<b>9</b>" + "|" + f"<b><a href='{top_10_tokens[8]['dextools']}'>{top_10_tokens[8]['TOKEN_NAME']} ({top_10_tokens[8]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[8]['hour1']}</i>"
-        + "\n" + f"<b>10</b>" + "|" + f"<b><a href='{top_10_tokens[9]['dextools']}'>{top_10_tokens[9]['TOKEN_NAME']} ({top_10_tokens[9]['change_hour1']})</a></b>" + "|" +  f"<i>${top_10_tokens[9]['hour1']}</i>"
+    top_10_formated.append(f"<b>🥇</b>" + "|" + f"<b><a href='{top_10_tokens[0]['dextools']}'>{top_10_tokens[0]['TOKEN_NAME']} ({round(top_10_tokens[0]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[0]['hour1']}</i>"
+        + "\n" + f"<b>🥈</b>" + "|" + f"<b><a href='{top_10_tokens[1]['dextools']}'>{top_10_tokens[1]['TOKEN_NAME']} ({round(top_10_tokens[1]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[1]['hour1']}</i>"
+        + "\n" + f"<b>🥉</b>" + "|" + f"<b><a href='{top_10_tokens[2]['dextools']}'>{top_10_tokens[2]['TOKEN_NAME']} ({round(top_10_tokens[2]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[2]['hour1']}</i>"
+        + "\n" + f"<b>4</b>" + "|" + f"<b><a href='{top_10_tokens[3]['dextools']}'>{top_10_tokens[3]['TOKEN_NAME']} ({round(top_10_tokens[3]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[3]['hour1']}</i>"
+        + "\n" + f"<b>5</b>" + "|" + f"<b><a href='{top_10_tokens[4]['dextools']}'>{top_10_tokens[4]['TOKEN_NAME']} ({round(top_10_tokens[4]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[4]['hour1']}</i>"
+        + "\n" + f"<b>6</b>" + "|" + f"<b><a href='{top_10_tokens[5]['dextools']}'>{top_10_tokens[5]['TOKEN_NAME']} ({round(top_10_tokens[5]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[5]['hour1']}</i>"
+        + "\n" + f"<b>7</b>" + "|" + f"<b><a href='{top_10_tokens[6]['dextools']}'>{top_10_tokens[6]['TOKEN_NAME']} ({round(top_10_tokens[6]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[6]['hour1']}</i>"
+        + "\n" + f"<b>8</b>" + "|" + f"<b><a href='{top_10_tokens[7]['dextools']}'>{top_10_tokens[7]['TOKEN_NAME']} ({round(top_10_tokens[7]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[7]['hour1']}</i>"
+        + "\n" + f"<b>9</b>" + "|" + f"<b><a href='{top_10_tokens[8]['dextools']}'>{top_10_tokens[8]['TOKEN_NAME']} ({round(top_10_tokens[8]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[8]['hour1']}</i>"
+        + "\n" + f"<b>10</b>" + "|" + f"<b><a href='{top_10_tokens[9]['dextools']}'>{top_10_tokens[9]['TOKEN_NAME']} ({round(top_10_tokens[9]['change_hour1']*100,2)}%)</a></b>" + "|" +  f"<i>${top_10_tokens[9]['hour1']}</i>"
         + "\n" + "\n" + f"ℹ️ <a href='www.DEFINET.com'>DefiNet</a> Algorithm automatically updates Trending every 10 seconds")
     
     message = " ".join(top_10_formated)
-    print(top_10_formated)
 
     return message
 
